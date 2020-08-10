@@ -1,21 +1,24 @@
 pragma solidity ^0.5.0;
 
-contract TodoList{
-  uint public taskCount = 0;
-  struct Task{
-    uint id;
-    string content;
-    bool completed;
-  }
+contract TodoList {
+    uint256 public taskCount = 0;
+    struct Task {
+        uint256 id;
+        string content;
+        bool completed;
+    }
 
-  mapping(uint => Task) public tasks;
+    mapping(uint256 => Task) public tasks;
 
-  constructor() public{
-    createTask("Checked out MY first DAPP");
-  }
+    event TaskCreated(uint256 id, string content, bool completed);
 
-  function createTask(string memory _content) public{
-    taskCount += 1;
-    tasks[taskCount] = Task(taskCount, _content, false);
-  }
+    constructor() public {
+        createTask("Checked out MY first DAPP");
+    }
+
+    function createTask(string memory _content) public {
+        taskCount += 1;
+        tasks[taskCount] = Task(taskCount, _content, false);
+        emit TaskCreated(taskCount, _content, false);
+    }
 }
